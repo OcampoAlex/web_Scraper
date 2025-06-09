@@ -17,6 +17,6 @@ pip install -r requirements.txt
 # EJECUCIÓN
 
 - python Wikcionario.py
-- python Chedraui.py
+- python Chedraui_el_chido.py
 
 
