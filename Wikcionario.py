@@ -10,7 +10,7 @@ URL = "https://es.wiktionary.org/wiki/Especial:Todas/%C3%89"
 OUTPUT_FILE = "Output_data/wikcionario_el_chido.json"
 
 
-def obtener_html(url):
+def obtener_html(url): # Funcion para obtener el html de la página
     """
     Envía una solicitud GET a la URL y devuelve el contenido HTML.
     """
@@ -21,7 +21,7 @@ def obtener_html(url):
         raise Exception(f"Error al acceder a la página: {respuesta.status_code}")
 
 
-def parsear_palabras_y_significados(html):
+def parsear_palabras_y_significados(html):  #Función para extraer palabras y enlaces a sus definiciones
     """
     Parsea el contenido HTML usando BeautifulSoup y extrae palabras con sus significados.
     Solo incluye palabras que comienzan con 'É'.
@@ -58,7 +58,7 @@ def parsear_palabras_y_significados(html):
     return resultado
 
 
-def obtener_definicion(url_palabra):
+def obtener_definicion(url_palabra):  # Abre el enlace de la palabra y obtiene su definición
     """
     Accede a la página individual de una palabra y extrae la primera definición en <dd>.
     """
@@ -76,7 +76,7 @@ def obtener_definicion(url_palabra):
         return f"Error al obtener definición: {e}"
 
 
-def guardar_json(data, archivo):
+def guardar_json(data, archivo):  #Guarda la sinformación en un archivo JSON, sin duplicar
     """
     Guarda los datos en formato JSON. Evita duplicados basados en la palabra.
     """
@@ -98,7 +98,7 @@ def guardar_json(data, archivo):
         json.dump(total, f, indent=2, ensure_ascii=False)
 
 
-def main():
+def main():  # Función principal que ejecuta todo el flujo.
     print("Obteniendo HTML de Wikcionario...")
     html = obtener_html(URL)
 

@@ -1,0 +1,86 @@
+Documentación Técnica
+
+Extracción de palabras que comienzan con “É” desde Wikcionario (https://es.wiktionary.org/)
+
+1. Objetivo del Proyecto:
+
+Desarrollar un script automatizado que acceda a la página del Wikcionario en español, recolecte todas las palabras que comienzan con la letra “É” y obtenga su primera definición, almacenando los resultados en un archivo JSON estructurado, evitando duplicados entre ejecuciones.
+
+2. Arquitectura y Diseño de la Solución
+La solución fue diseñada de forma modular para mantener la claridad, reutilización y mantenibilidad del código. Se dividió en las siguientes etapas:
+
+2.1 Diagrama de flujo General del programa:
+
+<------------------------------------------>
+[Inicio]
+   ↓
+[Descargar HTML de lista de palabras]
+   ↓
+[Extraer palabras que empiezan con "É"]
+   ↓
+[Por cada palabra, visitar su página individual]
+   ↓
+[Extraer primera definición]
+   ↓
+[Guardar en archivo JSON sin duplicados]
+   ↓
+[Fin]
+<---------------------------------------->
+
+2.2 Módulos y Responsabilidades
+
+A continuacion se enlistan las principales funciones del script y su comportamiento:
+
+obtener_html(url) -> Realiza una solicitud HTTP GET y retorna el HTML de la URL proporcionada.
+parsear_palabras_y_significados(html) -> Parsea el HTML principal y extrae palabras con sus enlaces individuales.
+obtener_definicion(url_palabra) -> Visita cada palabra individual y extrae la primera definición (<dd>).
+guardar_json(data, archivo) -> Guarda la información en JSON, evitando duplicados.
+main() -> Orquestador del proceso completo.
+
+3. Tecnologías Utilizadas
+3.1 Lenguaje utilizado:
+
+Python > 3.7
+
+3.2 Bibliotecas empleadas:
+
+Biblioteca -->  Uso
+requests --> Para hacer solicitudes HTTP y obtener contenido HTML de las páginas.
+BeautifulSoup (bs4) --> Para parsear HTML y navegar su estructura con selectores CSS.
+json --> Para manipular y almacenar los datos en formato JSON estructurado.
+os --> Para manejo de rutas, validación de archivos y creación de carpetas.
+
+
+
+4 Archivo de salida
+Se genera un archivo de salida llamado -> "wikcionario_el_chido.json"
+
+El archivo contiene una lista de diccionarios JSON, cada uno con:
+
+<---------------------------------------------------->
+{
+  "palabra": "Épica",
+  "significado": "Poema extenso que narra las hazañas de un héroe."
+}
+<---------------------------------------------------->
+
+5. Calidad y Control
+Control de duplicados: Antes de guardar nuevos datos, se revisa el archivo JSON existente. Se usa un set con las palabras ya guardadas para filtrar las que ya existen.
+
+Manejo de errores: Se capturan errores al descargar definiciones y se retorna un mensaje de error legible si ocurre algún fallo en la solicitud o parsing.
+
+Estructura modular: El código está dividido en funciones independientes para mejorar la mantenibilidad y pruebas unitarias si se desea escalar.
+
+Comentarios adicionales:
+
+- Para versiones futuras, se puede considerar almacenar los datos en un formato csv para tener datos estructurados en caso de que la cantidad de datos aumente significativamente y sea mas facil si ingesta a una base de datos relacional o una herramienta de Big Data como Hadoop.
+
+- El script hace peticiones moderadas y no automatiza a gran escala
+
+Licencia: GPLv3
+
+09 Junio 2025
+
+Alejandro Ocampo
+
+ 
